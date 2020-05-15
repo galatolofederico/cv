@@ -1,35 +1,15 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Friggeri Resume/CV for A4 paper format
-% XeLaTeX Template
-% Version 1.1
-%
-% A4 version author:
-% Marvin Frommhold (depressiverobot.com)
-% https://github.com/depressiveRobot/friggeri-cv-a4
-%
-% Original author:
-% Adrien Friggeri (adrien@friggeri.net)
-% https://github.com/afriggeri/CV
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-% Important notes:
-% This template needs to be compiled with XeLaTeX and the bibliography, if used,
-% needs to be compiled with biber rather than bibtex.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 % Options
 % 'print': remove colors from this template for printing
 % 'nocolors' to disable colors in section headers
-\documentclass[]{cv-template}
+\documentclass[]{style}
 
-\addbibresource{bibliography.bib} % Specify the bibliography file to include publications
+\usepackage{fontawesome}
+
+\addbibresource{bibliography.bib}
 
 \begin{document}
 
-\header{john}{smith}{junior business analyst} % Your name and current job title/field
+\header{@firstname}{@lastname}{@qualification}
 
 %----------------------------------------------------------------------------------------
 % SIDEBAR SECTION
@@ -37,9 +17,9 @@
 
 \begin{aside} % In the aside, each new line forces a line break
 \section{contact}
-123 Broadway
-City, State 12345
-Country
+\faicon{globe} @city
+\faicon{map} @street
+\faicon{building} @building
 ~
 +0 (000) 111 1111
 +0 (000) 111 1112
