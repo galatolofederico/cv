@@ -10,15 +10,52 @@ def getPlatform(mejson, name, raw=False):
     return "Not Found"
 
 
-def getBibTeX(pub):
+def getpubBibTeX(pub):
+    keywords = ";".join(pub["keywords"])
+    authors = pub["authors"].replace(",", " and ")
+    container = "under-review" if pub["container"] == "preprint" else pub["container"] 
     if pub["type"] == "conference":
         return """
+@inproceedings{%s,
+  AUTHOR = {%s},
+  TITLE = {{%s}},
+  BOOKTITLE = {{%s}},
+  VOLUME = {%s},
+  PAGES = {%s},
+  YEAR = {%s},
+  MONTH = {%s},
+  KEYWORDS = {%s},
+  DOI = {%s},
+  URL = {%s},
+  ISBN = {%s}
+}
+""" % (pub["name"], authors, pub["title"], 
+        container, pub["volume"], pub["pages"], 
+        pub["date"]["year"], pub["date"]["month"], 
+        keywords, pub["doi"], pub["link"], pub["isbn"])
 
-        """
     if pub["type"] == "journal":
         return """
+@article{%s,
+  AUTHOR = {%s},
+  TITLE = {{%s}},
+  JOURNAL = {{%s}},
+  VOLUME = {%s},
+  PAGES = {%s},
+  YEAR = {%s},
+  MONTH = {%s},
+  KEYWORDS = {%s},
+  DOI = {%s},
+  URL = {%s},
+  ISBN = {%s}
+}
+""" % (pub["name"], authors, pub["title"], 
+        container, pub["volume"], pub["pages"], 
+        pub["date"]["year"], pub["date"]["month"], 
+        keywords, pub["doi"], pub["link"], pub["isbn"])
 
-        """
+
+
 
 
 mejson = json.load(open("me.json/me.json", "r"))
@@ -40,7 +77,6 @@ placeholders = {
     "@url_telegram": getPlatform(mejson, "Telegram", True),
     "@github": getPlatform(mejson, "GitHub"),
     "@url_github": getPlatform(mejson, "GitHub", True),
-    
 }
 
 
@@ -53,5 +89,6 @@ cv.close()
 
 bibliography = open("bibliography.bib", "w")
 for pub in mejson["publications"]:
-    bibliography.write(getBibTeX(pub))
+    bibliography.write(getpubBibTeX(pub))
 bibliography.close()
+
