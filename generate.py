@@ -56,7 +56,56 @@ def getpubBibTeX(pub):
 
 
 
+def getProjectBibTex(proj):
+    return """
+@misc{%s,
+  TITLE = {{%s}},
+  KEYWORDS = {project},
+  NOTE = {{%s}},
+  YEAR = {%s},
+  MONTH = {%s},
+  DAY = {%s},
+  URL = {%s}
+}
+""" % (proj["name"], proj["title"], proj["description"],
+       proj["date"]["year"], proj["date"]["month"], proj["date"]["day"],
+       proj["link"])
 
+
+def getLectureBibTex(lecture):
+    note = lecture["container"]+" ("+lecture["position"]+")"
+    url = "https://galatolo.me/lecture/"+lecture["name"]
+    return """
+@misc{%s,
+  TITLE = {{%s}},
+  KEYWORDS = {lecture},
+  NOTE = {{%s}},
+  YEAR = {%s},
+  MONTH = {%s},
+  DAY = {%s},
+  URL = {%s}
+}
+""" % (lecture["name"], lecture["title"], note,
+       lecture["date"]["year"], lecture["date"]["month"], lecture["date"]["day"],
+       url) 
+
+thesis_id = 0
+def getThesisBibTex(thesis):
+    global thesis_id
+    thesis_id += 1
+    name = "thesis_"+str(thesis_id)
+    return """
+@misc{%s,
+  TITLE = {{%s}},
+  AUTHOR = {%s},
+  KEYWORDS = {thesis},
+  NOTE = {{%s}},
+  YEAR = {%s},
+  MONTH = {%s},
+  DAY = {%s},
+}
+""" % (name, thesis["title"], thesis["author"], thesis["type"],
+      thesis["date"]["year"], thesis["date"]["month"], thesis["date"]["day"],)
 
 mejson = json.load(open("me.json/me.json", "r"))
 
@@ -92,3 +141,11 @@ for pub in mejson["publications"]:
     bibliography.write(getpubBibTeX(pub))
 bibliography.close()
 
+misc = open("misc.bib", "w")
+for proj in mejson["projects"]:
+    misc.write(getProjectBibTex(proj))
+for lecture in mejson["lectures"]:
+    misc.write(getLectureBibTex(lecture))
+for thesis in mejson["advised_theses"]:
+    misc.write(getThesisBibTex(thesis))
+misc.close()

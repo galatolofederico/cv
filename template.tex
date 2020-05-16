@@ -1,7 +1,12 @@
-% Options
-% 'print': remove colors from this template for printing
-% 'nocolors' to disable colors in section headers
 \documentclass[]{style}
+
+\newcommand{\printbibsectionkeyword}[3]{
+  \begin{refsection}
+    \newrefcontext[sorting=chronological]%
+    \nocite{*}
+    \printbibliography[type={#1}, title={#2}, keyword={#3}, heading=bibheading]
+  \end{refsection}
+}
 
 \usepackage{fontawesome}
 \usepackage{array}
@@ -70,10 +75,22 @@
 
 \section{publications}
 
-\printbibsection{article}{articles in peer-reviewed journals} 
-\printbibsection{inproceedings}{international peer-reviewed conferences} 
+\printbibsection{article}{Articles in peer-reviewed journals} 
+\printbibsection{inproceedings}{International peer-reviewed conferences} 
 
-\section{seminars}
+\section{lectures}
+
+\printbibsectionkeyword{misc}{University lectures}{lecture}
+
+\section{advised theses}
+
+\printbibsectionkeyword{misc}{University advised theses}{thesis}
+
+\section{projects}
+
+\printbibsectionkeyword{misc}{Personal open-source projects}{project}
+
+%\printbibliography[type=misc, title={Personal open-source projects}, heading=bibheading]
 
 
 
