@@ -11,6 +11,11 @@
 \usepackage{fontawesome}
 \usepackage{array}
 \usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage[ddmmyyyy]{datetime}
+
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
 
 
 \addbibresource{bibliography.bib}
@@ -96,5 +101,21 @@
 \section{projects}
 
 \printbibsectionkeyword{misc}{Personal open-source projects}{project}
+
+@legalstart
+
+\newgeometry{left=2.5cm,top=2cm,right=2.5cm,bottom=2.5cm,nohead,nofoot}
+@legalnotice
+\vspace{2em}
+\begin{table}[htbp]
+  \centering
+  \begin{tabularx}{\textwidth}{ Y  Y  Y }
+      Pisa,  &     & @firstname @lastname \\
+      \today &     &                      \\
+             &     & \includegraphics[scale=1.5]{pictures/signature.png} \\
+  \end{tabularx}
+\end{table}
+
+@legalend
 
 \end{document}

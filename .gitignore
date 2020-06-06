@@ -1,15 +1,17 @@
-cv.synctex.gz
-cv.log
-cv.out
-cv.aux
-cv.blg
-cv.bbl
-cv.bcf
-cv.run.xml
-cv.pdf
+*.synctex.gz
+*.log
+*.out
+*.aux
+*.blg
+*.bbl
+*.bcf
+*.run.xml
+*.pdf
 
+cv_sig.tex
 cv.tex
 bibliography.bib
 misc.bib
 
 me.json/
+pictures/

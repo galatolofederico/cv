@@ -1,11 +1,18 @@
 .DEFAULT_GOAL := default
 
-default: pdf clean
+default: cv clean
 
-pdf: init texfile
+all: cv cv_sig clean
+
+cv: init texfile
 	xelatex cv
 	biber cv
 	xelatex cv
+
+cv_sig: init texfile
+	xelatex cv_sig
+	biber cv_sig
+	xelatex cv_sig
 
 texfile:
 	python3 generate.py
@@ -15,3 +22,5 @@ init:
 
 clean:
 	rm -rf cv.log cv.out cv.aux cv.blg cv.bbl cv.bcf cv.run.xml cv.tex
+	rm -rf cv_sig.log cv_sig.out cv_sig.aux cv_sig.blg cv_sig.bbl cv_sig.bcf cv_sig.run.xml cv_sig.tex
+	
