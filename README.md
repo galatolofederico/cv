@@ -12,6 +12,16 @@ Just run
 make
 ```
 
+or using Docker
+
+```
+mkdir dist
+docker build . -t  cv
+docker run -v $(pwd)/dist:/dist -it cv_test ./dist.sh
+```
+
+The cv will be in `./dist`
+
 to generate the updated curriculum
 
 ## License and attribution
