@@ -1,5 +1,6 @@
 import json
 import re
+import os
 
 def getPlatform(mejson, name, raw=False):
     for profile in mejson["digitalidentity"]["profiles"]:
@@ -108,7 +109,8 @@ def getThesisBibTex(thesis):
 """ % (name, thesis["title"], thesis["author"], thesis["type"],
       thesis["date"]["year"], thesis["date"]["month"], thesis["date"]["day"],)
 
-mejson = json.load(open("me.json/me.json", "r"))
+mejson_file = os.getenv("MEJSON") if os.getenv("MEJSON") is not None else "./me.json/me.json"
+mejson = json.load(open(mejson_file, "r"))
 
 placeholders = {
     "@firstname": mejson["anagraphic"]["fullname"]["first"]+" "+mejson["anagraphic"]["fullname"]["middle"][0]+". ",
@@ -129,7 +131,11 @@ placeholders = {
     "@url_github": getPlatform(mejson, "GitHub", True),
 }
 
+placeholders["@signature_file"] = os.getenv("SIGNATURE_FILE") if os.getenv("SIGNATURE_FILE") is not None else "./pictures/signature.png"
+
 legalnotice = 'Consapevole delle sanzioni penali, nel caso di dichiarazioni non veritiere, di formazione o uso atti falsi richiamate dall’art. 76 del D.P.R. 445 del 28 dicembre 2000, nonché della sanzione ulteriore prevista dall’art. 75 del citato D.P.R. 445 del 28 dicembre 2000, consistente nella decadenza dai benefici eventualmente conseguenti al provvedimento emanato sulla base della dichiarazione non veritiera. Autorizzo il trattamento dei miei dati personali presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 "Codice in materia di protezione dei dati personali" e del GDPR (Regolamento UE 2016/679).'
+
+
 
 template = open("template.tex", "r").read()
 
