@@ -3,6 +3,7 @@
 cd /cv
 
 mkdir -p /dist
+make clean
 make all
 
 cp -f cv.pdf /dist
