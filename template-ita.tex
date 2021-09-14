@@ -1,0 +1,126 @@
+\documentclass[]{style}
+
+\newcommand{\printbibsectionkeyword}[3]{
+  \begin{refsection}
+    \newrefcontext[sorting=chronological]%
+    \nocite{*}
+    \printbibliography[type={#1}, title={#2}, keyword={#3}, heading=bibheading]
+  \end{refsection}
+}
+
+\usepackage{fontawesome}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage[ddmmyyyy]{datetime}
+
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+
+\addbibresource{bibliography.bib}
+\addbibresource{misc.bib}
+
+
+\begin{document}
+
+\header{@firstname}{@lastname}{@qualification}
+
+
+\begin{aside}
+\section{{\color{white}.}}
+\includegraphics[width=4cm]{me}
+\section{Contatti}
+\begin{tabular}{m{1cm}m{3cm}}
+    \faicon{globe}& \href{@url_website}{@website} \\
+    \faicon{mobile} & \href{@url_phone}{@phone} \\
+    \faicon{at} & \href{@url_email}{@email} \\
+    \faicon{paper-plane} & \href{@url_telegram}{@telegram} \\
+    \faicon{github} & \href{@url_github}{@github} \\
+\end{tabular}
+\section{Dove}
+\begin{tabular}{m{1cm}m{3cm}}
+    \faicon{map} & @city \\
+    \faicon{map-pin} & @street \\
+    \faicon{building} & @building
+\end{tabular}
+\section{Lingue}
+\begin{tabular}{m{1cm}m{3cm}}
+  \faicon{comments-o} & Italian \\
+  \faicon{comments-o} & English 
+\end{tabular}
+\section{Programmazione}
+\begin{tabular}{m{1cm}m{3cm}}
+  \faicon{code} & Python \\
+  \faicon{code} & Javascript \\
+  \faicon{code} & C++ \\
+  \faicon{code} & Java 
+\end{tabular}
+\end{aside}
+
+\section{formazione}
+
+\begin{entrylist}
+
+\entry
+{2007--2013}
+{Diploma {\normalfont Liceo Scientifico}}
+{Liceo Scientifico G. Marconi, Grosseto (Italy)}
+
+\entry
+{2013--2016}
+{Laurea Triennale {\normalfont in Ingegneria Informatica}}
+{University of Pisa, Pisa (Italy)}
+
+\entry
+{2016--2018}
+{Laurea Magistrale {\normalfont in Computer Engineering}}
+{University of Pisa, Pisa (Italy)}
+
+\entry
+{2018--today}
+{PhD {\normalfont in Ingegneria dell'Informazione}}
+{University of Pisa, Pisa (Italy)}
+
+\end{entrylist}
+
+
+\section{pubblicazioni}
+
+\printbibsection{article}{Articoli in Journal Internazionali con peer-review} 
+\printbibsection{inproceedings}{Articoli in Conferenze Internazionali con peer-review} 
+
+\section{ruoli accademici}
+
+\printbibsectionkeyword{misc}{Per Journal Internazionali}{journalrole}
+\printbibsectionkeyword{misc}{Per Conferenze Internazionali}{conferencerole}
+
+\section{lezioni}
+
+\printbibsectionkeyword{misc}{Lezioni Universitarie}{lecture}
+
+\section{tesi}
+
+\printbibsectionkeyword{misc}{Relatore di Tesi Universitarie}{thesis}
+
+\section{progetti}
+
+\printbibsectionkeyword{misc}{Progetti personali open-source}{project}
+
+@legalstart
+
+\newgeometry{left=2.5cm,top=2cm,right=2.5cm,bottom=2.5cm,nohead,nofoot}
+@legalnotice
+\vspace{2em}
+\begin{table}[htbp]
+  \centering
+  \begin{tabularx}{\textwidth}{ Y  Y  Y }
+      Pisa,  &     & @firstname @lastname \\
+      \today &     &                      \\
+             &     & \includegraphics[scale=1.5]{@signature_file} \\
+  \end{tabularx}
+\end{table}
+
+@legalend
+
+\end{document}

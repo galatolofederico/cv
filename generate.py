@@ -1,6 +1,7 @@
 import json
 import re
 import os
+import argparse
 
 def getPlatform(mejson, name, raw=False):
     for profile in mejson["digitalidentity"]["profiles"]:
@@ -162,34 +163,39 @@ placeholders["@signature_file"] = os.getenv("SIGNATURE_FILE") if os.getenv("SIGN
 
 legalnotice = 'Consapevole delle sanzioni penali, nel caso di dichiarazioni non veritiere, di formazione o uso atti falsi richiamate dall’art. 76 del D.P.R. 445 del 28 dicembre 2000, nonché della sanzione ulteriore prevista dall’art. 75 del citato D.P.R. 445 del 28 dicembre 2000, consistente nella decadenza dai benefici eventualmente conseguenti al provvedimento emanato sulla base della dichiarazione non veritiera. Autorizzo il trattamento dei miei dati personali presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 "Codice in materia di protezione dei dati personali" e del GDPR (Regolamento UE 2016/679).'
 
+parser = argparse.ArgumentParser()
 
+parser.add_argument("--template", type=str, default="template.tex")
+parser.add_argument("--tex-output", type=str, default="cv.tex")
+parser.add_argument("--bibliography-output", type=str, default="bibliography.bib")
+parser.add_argument("--misc-output", type=str, default="misc.bib")
+parser.add_argument("--signature", action="store_true")
 
-template = open("template.tex", "r").read()
+args = parser.parse_args()
 
-cv = open("cv.tex", "w")
-cv_sig = open("cv_sig.tex", "w")
+template = open(args.template, "r").read()
+
+cv = open(args.tex_output, "w")
 
 for key, value in placeholders.items():
     template = template.replace(key, value)
 
-template_pub = re.sub('@legalstart.*@legalend', "", template, flags=re.DOTALL)
+if args.signature:
+    template = template.replace("@legalnotice", legalnotice)
+    template = template.replace("@legalstart", "")
+    template = template.replace("@legalend", "")
+else:
+    template = re.sub('@legalstart.*@legalend', "", template, flags=re.DOTALL)
 
-template_sig = template.replace("@legalnotice", legalnotice)
-template_sig = template_sig.replace("@legalstart", "")
-template_sig = template_sig.replace("@legalend", "")
-
-cv.write(template_pub)
-cv_sig.write(template_sig)
-
+cv.write(template)
 cv.close()
-cv_sig.close()
 
-bibliography = open("bibliography.bib", "w")
+bibliography = open(args.bibliography_output, "w")
 for pub in mejson["publications"]:
     bibliography.write(getpubBibTeX(pub))
 bibliography.close()
 
-misc = open("misc.bib", "w")
+misc = open(args.misc_output, "w")
 for proj in mejson["projects"]:
     misc.write(getProjectBibTex(proj))
 for lecture in mejson["lectures"]:
