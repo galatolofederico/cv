@@ -2,7 +2,7 @@
 
 Latex template and python script to generate my curriculum using my [me.json](https://github.com/galatolofederico/me.json)
 
-The latest version can be found [here](http://galatolo.me/cv.pdf)
+The latest version can be found [here](http://static.galatolo.me/cv.pdf)
 
 ## Usage
 
