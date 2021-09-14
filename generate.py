@@ -109,6 +109,33 @@ def getThesisBibTex(thesis):
 """ % (name, thesis["title"], thesis["author"], thesis["type"],
       thesis["date"]["year"], thesis["date"]["month"], thesis["date"]["day"],)
 
+journal_role_count = 0
+def getJorunalRoleBibTex(role):
+    global journal_role_count
+    journal_role_count += 1
+    return """
+@misc{journalrole-%s,
+  TITLE = {{%s - %s}},
+  AUTHOR = {%s},
+  KEYWORDS = {journalrole},
+  URL = {%s}
+}
+""" % (journal_role_count, role["journal"], role["publisher"], role["role"], role["link"]) 
+
+
+conference_role_count = 0
+def getConferenceRoleBibTex(role):
+    global conference_role_count
+    conference_role_count += 1
+    return """
+@misc{conferencerole-%s,
+  TITLE = {{%s}},
+  AUTHOR = {%s},
+  KEYWORDS = {conferencerole},
+  URL = {%s}
+}
+""" % (conference_role_count, role["conference"], role["role"], role["link"]) 
+
 mejson_file = os.getenv("MEJSON") if os.getenv("MEJSON") is not None else "./me.json/me.json"
 mejson = json.load(open(mejson_file, "r"))
 
@@ -169,4 +196,8 @@ for lecture in mejson["lectures"]:
     misc.write(getLectureBibTex(lecture))
 for thesis in mejson["advised_theses"]:
     misc.write(getThesisBibTex(thesis))
+for role in mejson["roles"]["journals"]:
+    misc.write(getJorunalRoleBibTex(role))
+for role in mejson["roles"]["conferences"]:
+    misc.write(getConferenceRoleBibTex(role))
 misc.close()
