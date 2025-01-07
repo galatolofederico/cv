@@ -16,7 +16,7 @@ def getPlatform(mejson, name, raw=False):
 def getpubBibTeX(pub):
     keywords = ";".join(pub["keywords"])
     authors = pub["authors"].replace(",", " and ")
-    container = "under-review" if pub["container"] == "preprint" else pub["container"] 
+    container = "under-review" if pub["container"] == "preprint" or pub["container"] == "" else pub["container"] 
     container = container.replace('%', r'\%')
     container = container.replace('&', r'\&')
 
