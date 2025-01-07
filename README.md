@@ -17,7 +17,7 @@ or using Docker
 ```
 mkdir dist
 docker build . -t  cv
-docker run -v $(pwd)/dist:/dist -it cv_test ./dist.sh
+docker run --rm -v $(pwd)/dist:/dist -it cv ./dist.sh
 ```
 
 The cv will be in `./dist`
