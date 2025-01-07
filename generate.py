@@ -80,41 +80,6 @@ def getProjectBibTex(proj):
        proj["link"])
 
 
-def getLectureBibTex(lecture):
-    note = lecture["container"]+" ("+lecture["position"]+")"
-    url = "https://galatolo.me/lecture/"+lecture["name"]
-    return """
-@misc{%s,
-  TITLE = {{%s}},
-  KEYWORDS = {lecture},
-  NOTE = {{%s}},
-  YEAR = {%s},
-  MONTH = {%s},
-  DAY = {%s},
-  URL = {%s}
-}
-""" % (lecture["name"], lecture["title"], note,
-       lecture["date"]["year"], lecture["date"]["month"], lecture["date"]["day"],
-       url) 
-
-thesis_id = 0
-def getThesisBibTex(thesis):
-    global thesis_id
-    thesis_id += 1
-    name = "thesis_"+str(thesis_id)
-    return """
-@misc{%s,
-  TITLE = {{%s}},
-  AUTHOR = {%s},
-  KEYWORDS = {thesis},
-  NOTE = {{%s}},
-  YEAR = {%s},
-  MONTH = {%s},
-  DAY = {%s},
-}
-""" % (name, thesis["title"], thesis["author"], thesis["type"],
-      thesis["date"]["year"], thesis["date"]["month"], thesis["date"]["day"],)
-
 journal_role_count = 0
 def getJorunalRoleBibTex(role):
     global journal_role_count
@@ -203,10 +168,6 @@ bibliography.close()
 misc = open(args.misc_output, "w")
 for proj in mejson["projects"]:
     misc.write(getProjectBibTex(proj))
-for lecture in mejson["lectures"]:
-    misc.write(getLectureBibTex(lecture))
-for thesis in mejson["advised_theses"]:
-    misc.write(getThesisBibTex(thesis))
 for role in mejson["roles"]["journals"]:
     misc.write(getJorunalRoleBibTex(role))
 for role in mejson["roles"]["conferences"]:
