@@ -17,6 +17,9 @@ def getpubBibTeX(pub):
     keywords = ";".join(pub["keywords"])
     authors = pub["authors"].replace(",", " and ")
     container = "under-review" if pub["container"] == "preprint" else pub["container"] 
+    container = container.replace('%', r'\%')
+    container = container.replace('&', r'\&')
+
     if pub["type"] == "conference":
         return """
 @inproceedings{%s,
@@ -60,6 +63,8 @@ def getpubBibTeX(pub):
 
 
 def getProjectBibTex(proj):
+    proj["description"] = proj["description"].replace('%', r'\%')
+    
     return """
 @misc{%s,
   TITLE = {{%s}},
