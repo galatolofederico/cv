@@ -2,39 +2,23 @@
 
 default: cv-eng clean
 
-all: cv-eng cv-eng-sig cv-ita cv-ita-sig clean
+all: cv-eng cv-eng-sig clean
 
 cv-eng: init texfile-cv-eng
 	xelatex cv
 	biber cv
 	xelatex cv
 
-cv-ita: init texfile-cv-ita
-	xelatex cv_ita
-	biber cv_ita
-	xelatex cv_ita
-
 cv-eng-sig: init texfile-cv-eng-sig
 	xelatex cv_sig
 	biber cv_sig
 	xelatex cv_sig
 
-cv-ita-sig: init texfile-cv-ita-sig
-	xelatex cv_ita_sig
-	biber cv_ita_sig
-	xelatex cv_ita_sig
-
 texfile-cv-eng:
-	python3 generate.py --template template.tex --tex-output cv.tex
-
-texfile-cv-ita:
-	python3 generate.py --template template-ita.tex --tex-output cv_ita.tex
+	python3 generate.py --tex-output cv.tex
 
 texfile-cv-eng-sig:
 	python3 generate.py --tex-output cv_sig.tex --signature
-
-texfile-cv-ita-sig:
-	python3 generate.py --template template-ita.tex --tex-output cv_ita_sig.tex --signature
 
 init:
 ifndef MEJSON

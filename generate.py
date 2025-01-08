@@ -135,7 +135,7 @@ legalnotice = 'Consapevole delle sanzioni penali, nel caso di dichiarazioni non 
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--template", type=str, default="template.tex")
+parser.add_argument("--sections", nargs="+", default=["abstract", "metrics", "education", "work", "academic_projects", "publications", "roles", "opensource_projects"])
 parser.add_argument("--tex-output", type=str, default="cv.tex")
 parser.add_argument("--bibliography-output", type=str, default="bibliography.bib")
 parser.add_argument("--misc-output", type=str, default="misc.bib")
@@ -143,9 +143,13 @@ parser.add_argument("--signature", action="store_true")
 
 args = parser.parse_args()
 
-template = open(args.template, "r").read()
+template = ""
+for section_name in ["header"] + args.sections + ["footer"]:
+    section_file = os.path.join("template", f"{section_name}.tex")
+    if not os.path.exists(section_file):
+        raise ValueError(f"Section {section_name} (file: {section_file}) does not exist")
+    with open(section_file, "r") as section: template += section.read()
 
-cv = open(args.tex_output, "w")
 
 for key, value in placeholders.items():
     template = template.replace(key, value)
@@ -157,8 +161,8 @@ if args.signature:
 else:
     template = re.sub('@legalstart.*@legalend', "", template, flags=re.DOTALL)
 
-cv.write(template)
-cv.close()
+with open(args.tex_output, "w") as cv:
+    cv.write(template)
 
 bibliography = open(args.bibliography_output, "w")
 for pub in mejson["publications"]:
