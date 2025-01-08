@@ -9,6 +9,11 @@ cv-eng: init texfile-cv-eng
 	biber cv
 	xelatex cv
 
+cv-eng-academic: init texfile-cv-eng-academic
+	xelatex cv
+	biber cv
+	xelatex cv
+
 cv-eng-sig: init texfile-cv-eng-sig
 	xelatex cv_sig
 	biber cv_sig
@@ -16,6 +21,9 @@ cv-eng-sig: init texfile-cv-eng-sig
 
 texfile-cv-eng:
 	python3 generate.py --tex-output cv.tex
+
+texfile-cv-eng-academic:
+	python3 generate.py --tex-output cv.tex --sections abstract metrics education_short work newpage roles academic_projects newpage publications
 
 texfile-cv-eng-sig:
 	python3 generate.py --tex-output cv_sig.tex --signature

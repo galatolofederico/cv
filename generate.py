@@ -135,7 +135,7 @@ legalnotice = 'Consapevole delle sanzioni penali, nel caso di dichiarazioni non 
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--sections", nargs="+", default=["abstract", "metrics", "education", "work", "academic_projects", "publications", "roles", "opensource_projects"])
+parser.add_argument("--sections", nargs="+", default=["abstract", "metrics", "education", "work", "newpage",  "academic_projects", "publications", "roles", "opensource_projects"])
 parser.add_argument("--tex-output", type=str, default="cv.tex")
 parser.add_argument("--bibliography-output", type=str, default="bibliography.bib")
 parser.add_argument("--misc-output", type=str, default="misc.bib")
