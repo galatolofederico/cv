@@ -10,6 +10,12 @@ Just run
 make
 ```
 
+or 
+
+```
+make cv-eng-academic
+```
+
 or using Docker
 
 ```
